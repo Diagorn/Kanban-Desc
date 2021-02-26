@@ -1,6 +1,7 @@
 <#import "login.ftlh" as l>
+<#include "security.ftlh">
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="/">Управление заявками</a>
+    <a class="navbar-brand" href="/">Адаптация</a>
     <button
             class="navbar-toggler"
             type="button"
@@ -15,38 +16,20 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/request"
-                >Заявки <span class="sr-only">(current)</span></a
+                <a class="nav-link" href="/tasks/"
+                >Задачи <span class="sr-only">(current)</span></a
                 >
             </li>
-            <#if isAdmin>
-                <li class="nav-item">
-                    <a class="nav-link" href="/user">Управление</a>
-                </li>
-            </#if>
             <li class="nav-item">
-                <a class="nav-link" href="/user/contacts">Контакты</a>
+                <a class="nav-link" href="/calendar/">Календарь</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/payment">Оплата</a>
+                <a class="nav-link" href="/notes/">Заметки</a>
             </li>
-            <#if known>
-                <#if isAdmin || isModer>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/chat">Чат</a>
-                    </li>
-                </#if>
-            </#if>
+            <li class="nav-item">
+                <a class="nav-link" href="/faq/">Библия атома</a>
+            </li>
         </ul>
-        <div class="float-right">
-            <a href="/user/profile">
-                <span class="name ml-auto mr-2">${shortName}</span
-                ><#if known><img
-                src="img/${avatar}"
-                alt=""
-                class="img-responsive navbar-custom-avatar"
-                /></#if></a>
-        </div>
-        <#if name!=""><@l.logout/></#if>
+        <#if known><@l.logout/></#if>
     </div>
 </nav>

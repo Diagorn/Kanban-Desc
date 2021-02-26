@@ -79,10 +79,8 @@ public class ServiceUtils {
         result += ":";
         if (calendar.get(GregorianCalendar.MINUTE) < 10) {
             result += "0";
-            result += calendar.get(GregorianCalendar.MINUTE);
-        } else {
-            result += calendar.get(GregorianCalendar.MINUTE);
         }
+        result += calendar.get(GregorianCalendar.MINUTE);
         return result;
     }
 

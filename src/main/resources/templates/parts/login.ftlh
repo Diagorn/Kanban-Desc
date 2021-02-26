@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <form action="/login" method="post">
+            <form action="${path}" method="post">
                 <@user_inputs />
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
                 <button type="submit" class="btn btn-primary">Войти</button>

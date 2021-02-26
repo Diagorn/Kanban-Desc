@@ -11,7 +11,7 @@ public class Token {
     @Column(unique = true)
     private String token;
 
-    @OneToOne(mappedBy = "token", fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER)
     private Account account;
 
     public Token() {
