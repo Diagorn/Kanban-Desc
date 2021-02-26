@@ -24,7 +24,7 @@ public class Task {
     private Account owner;
 
     @OneToMany(fetch = FetchType.EAGER)
-    private Set<Account> executer;
+    private Set<Account> executers;
 
     public Task() {
     }
@@ -85,11 +85,11 @@ public class Task {
         this.owner = owner;
     }
 
-    public Set<Account> getExecuter() {
-        return executer;
+    public Set<Account> getExecuters() {
+        return executers;
     }
 
-    public void setExecuter(Set<Account> executer) {
-        this.executer = executer;
+    public void setExecuters(Set<Account> executer) {
+        this.executers = executer;
     }
 }
