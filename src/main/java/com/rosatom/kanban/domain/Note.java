@@ -59,4 +59,12 @@ public class Note {
     public void setCreationDate(GregorianCalendar creationDate) {
         this.creationDate = creationDate;
     }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 }

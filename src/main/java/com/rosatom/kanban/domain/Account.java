@@ -23,10 +23,6 @@ public class Account implements UserDetails {
     private String secondName;
     private String firstName;
 
-    @Type(type = "json")
-    @Column(columnDefinition = "json", nullable = false)
-    private Map<String, Object> worktable;
-
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private Set<Note> notes;
 
@@ -129,14 +125,6 @@ public class Account implements UserDetails {
 
     public void setLost(Set<Lost> lost) {
         this.lost = lost;
-    }
-
-    public Map<String, Object> getWorktable() {
-        return worktable;
-    }
-
-    public void setWorktable(Map<String, Object> worktable) {
-        this.worktable = worktable;
     }
 
     public Set<Note> getNotes() {
