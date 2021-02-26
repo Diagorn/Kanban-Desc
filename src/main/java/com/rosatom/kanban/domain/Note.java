@@ -1,6 +1,7 @@
 package com.rosatom.kanban.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.GregorianCalendar;
 
 @Entity
@@ -11,6 +12,8 @@ public class Note {
 
     private String title;
     private String content;
+
+    @NotNull
     private GregorianCalendar date;
     private GregorianCalendar creationDate;
 

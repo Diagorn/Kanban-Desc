@@ -1,35 +1,34 @@
-<#include "security.ftlh">
-
-<#macro user_inputs>
-    <div class="form-group">
-        <label for="exampleInputEmail1">Адрес электронной почты</label>
-        <input name="username" type="email" class="form-control"
-               id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Введите электронную почту">
-    </div>
-
-    <div class="form-group">
-        <label for="exampleInputPassword1">Пароль</label>
-        <input name="password" type="password" class="form-control"
-               id="exampleInputPassword1" placeholder="Введите пароль">
-    </div>
-</#macro>
-
 <#macro login path>
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <form action="${path}" method="post">
-                <@user_inputs />
+ <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo">
+                <img src="/static/images/logo.svg" alt="logo">
+              </div>
+              <h4>Здравствуйте</h4>
+              <h6 class="font-weight-light">Авторизуйтесь, чтобы начать работу!</h6>
+              <form class="pt-3" action="${path}" method="post">
+                <div class="form-group">
+                  <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" name="username">
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" name="password">
+                </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}">
-                <button type="submit" class="btn btn-primary">Войти</button>
-            </form>
+                <div class="mt-3">
+                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit">Войти</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
+      </div>
+      <!-- content-wrapper ends -->
     </div>
-</#macro>
-
-<#macro logout>
-    <form action="/logout" method="post">
-        <input type="hidden" name="_csrf" value="${_csrf.token}">
-        <button class="btn btn-light ml-3" type="submit">Выйти</button>
-    </form>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
 </#macro>
