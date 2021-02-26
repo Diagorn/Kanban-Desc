@@ -20,10 +20,10 @@ public class Task {
 
     private GregorianCalendar end;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Account owner;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Account> executer;
 
     public Task() {

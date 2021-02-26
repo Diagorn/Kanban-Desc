@@ -33,6 +33,12 @@ public class Account implements UserDetails {
     @OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
     private Token token;
 
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private Set<Task> ownedTasks;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Task executedTask;
+
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "account_role", joinColumns = @JoinColumn(name = "account_id"))
@@ -152,5 +158,21 @@ public class Account implements UserDetails {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Task> getOwnedTasks() {
+        return ownedTasks;
+    }
+
+    public void setOwnedTasks(Set<Task> ownedTasks) {
+        this.ownedTasks = ownedTasks;
+    }
+
+    public Task getExecutedTask() {
+        return executedTask;
+    }
+
+    public void setExecutedTask(Task executedTask) {
+        this.executedTask = executedTask;
     }
 }
