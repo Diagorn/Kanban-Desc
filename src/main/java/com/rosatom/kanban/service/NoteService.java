@@ -6,7 +6,10 @@ import com.rosatom.kanban.repos.NoteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class NoteService {
@@ -53,5 +56,22 @@ public class NoteService {
     public void delete(long id) {
         Note note = findById(id);
         noteRepo.delete(note);
+    }
+
+    public Set<Note> getNotesByDate(GregorianCalendar date) {
+        int month = date.get(Calendar.MONTH);
+        int day = date.get(Calendar.DAY_OF_MONTH);
+        int year = date.get(Calendar.YEAR);
+
+        Iterable<Note> all = noteRepo.findAll();
+        Set<Note> result = new HashSet<Note>();
+        for (Note n: all) {
+            if (month == n.getDate().get(Calendar.MONTH) &&
+                    day == n.getDate().get(Calendar.DAY_OF_MONTH) &&
+                    year == n.getDate().get(Calendar.YEAR))
+                result.add(n);
+        }
+
+        return result;
     }
 }
