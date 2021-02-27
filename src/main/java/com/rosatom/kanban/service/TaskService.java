@@ -2,8 +2,11 @@ package com.rosatom.kanban.service;
 
 import com.rosatom.kanban.domain.Account;
 import com.rosatom.kanban.domain.Task;
+import com.rosatom.kanban.domain.TaskStatus;
+import com.rosatom.kanban.dto.responses.TaskStatusResponse;
 import com.rosatom.kanban.repos.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.GregorianCalendar;
@@ -48,5 +51,24 @@ public class TaskService {
         task.getExecuters().add(executer);
 
         taskRepo.save(task);
+    }
+
+    public Iterable<Task> findAll() {
+        return taskRepo.findAll();
+    }
+
+    public Task findById(Long id) {
+        return taskRepo.findById(id).get();
+    }
+
+    public TaskStatusResponse setNewStatus(Long id, TaskStatus newStatus) {
+        Task task = findById(id);
+        if (task != null) {
+            task.setStatus(newStatus);
+            taskRepo.save(task);
+            return new TaskStatusResponse(id, HttpStatus.OK);
+        } else {
+            return new TaskStatusResponse(id, HttpStatus.BAD_REQUEST);
+        }
     }
 }

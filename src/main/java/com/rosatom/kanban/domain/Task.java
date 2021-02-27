@@ -2,6 +2,7 @@ package com.rosatom.kanban.domain;
 
 import javax.persistence.*;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,6 +28,7 @@ public class Task {
     private Set<Account> executers;
 
     public Task() {
+        executers = new HashSet<Account>();
     }
 
     public Long getId() {

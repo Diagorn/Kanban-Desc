@@ -2,14 +2,14 @@ package com.rosatom.kanban.service;
 
 import com.rosatom.kanban.domain.Account;
 import com.rosatom.kanban.domain.Note;
+import com.rosatom.kanban.dto.requests.NoteRequest;
+import com.rosatom.kanban.dto.responses.NoteResponse;
 import com.rosatom.kanban.repos.NoteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class NoteService {
@@ -53,9 +53,14 @@ public class NoteService {
         noteRepo.save(note);
     }
 
-    public void delete(long id) {
+    public NoteResponse delete(long id) {
         Note note = findById(id);
-        noteRepo.delete(note);
+        if (note != null) {
+            noteRepo.delete(note);
+            return new NoteResponse(id, HttpStatus.OK);
+        } else {
+            return new NoteResponse(id, HttpStatus.BAD_REQUEST);
+        }
     }
 
     public Set<Note> getNotesByDate(GregorianCalendar date) {
@@ -73,5 +78,45 @@ public class NoteService {
         }
 
         return result;
+    }
+
+    public NoteResponse saveNoteFromRequest(NoteRequest request, Account account) {
+        Note note = new Note();
+
+        note.setAccount(account);
+        if (request.getDate() != null)
+            note.setDate(request.getDate());
+        if (request.getContent() != null && !request.getContent().isEmpty())
+            note.setContent(request.getContent());
+        if (request.getTitle() != null && !request.getTitle().isEmpty())
+            note.setTitle(request.getTitle());
+        note.setCreationDate(new GregorianCalendar());
+
+        noteRepo.save(note);
+
+        return new NoteResponse(note.getId(), HttpStatus.CREATED);
+    }
+
+    public NoteResponse update(Long id, NoteRequest request, Account account) {
+        Note note = findById(id);
+        if (note != null) {
+            if (request.getDate() != null)
+                note.setDate(request.getDate());
+            if (request.getTitle() != null)
+                note.setTitle(request.getTitle());
+            if (request.getContent() != null && !request.getContent().isEmpty())
+                note.setContent(request.getContent());
+            note.setAccount(account);
+
+            noteRepo.save(note);
+
+            return new NoteResponse(id, HttpStatus.OK);
+        } else {
+            return new NoteResponse(id, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public Iterable<Note> findAll() {
+        return noteRepo.findAll();
     }
 }
