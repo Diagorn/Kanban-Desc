@@ -3,6 +3,7 @@ package com.rosatom.kanban.service;
 import com.rosatom.kanban.domain.Account;
 import com.rosatom.kanban.domain.Note;
 import com.rosatom.kanban.dto.requests.NoteRequest;
+import com.rosatom.kanban.dto.responses.NoteDataResponse;
 import com.rosatom.kanban.dto.responses.NoteResponse;
 import com.rosatom.kanban.repos.NoteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,27 @@ public class NoteService {
 
     public Note findById(long id) {
         return noteRepo.findById(id).get();
+//        return new NoteDataResponse();
+    }
+
+    public Iterable<NoteDataResponse> findAll() {
+        List<NoteDataResponse> data = new ArrayList<>();
+        for (Note note: noteRepo.findAll()) {
+            data.add(new NoteDataResponse(
+                    note.getId(),
+                    note.getTitle(),
+                    note.getDescription(),
+                    note.getStartDate(),
+                    note.getEndDate()
+            ));
+        }
+        return data;
     }
 
     public void setValues(Note note, String title, String content, GregorianCalendar date, Account account) {
         note.setTitle(title);
-        note.setContent(content);
-        note.setDate(date);
+        note.setDescription(content);
+        note.setStartDate(date);
         note.setAccount(account);
     }
 
@@ -71,9 +87,9 @@ public class NoteService {
         Iterable<Note> all = noteRepo.findAll();
         Set<Note> result = new HashSet<Note>();
         for (Note n: all) {
-            if (month == n.getDate().get(Calendar.MONTH) &&
-                    day == n.getDate().get(Calendar.DAY_OF_MONTH) &&
-                    year == n.getDate().get(Calendar.YEAR))
+            if (month == n.getStartDate().get(Calendar.MONTH) &&
+                    day == n.getStartDate().get(Calendar.DAY_OF_MONTH) &&
+                    year == n.getStartDate().get(Calendar.YEAR))
                 result.add(n);
         }
 
@@ -84,10 +100,12 @@ public class NoteService {
         Note note = new Note();
 
         note.setAccount(account);
-        if (request.getDate() != null)
-            note.setDate(request.getDate());
-        if (request.getContent() != null && !request.getContent().isEmpty())
-            note.setContent(request.getContent());
+        if (request.getStart_date() != null)
+            note.setStartDate(request.getStart_date());
+        if (request.getStart_date() != null)
+            note.setEndDate(request.getStart_date());
+        if (request.getDescription() != null && !request.getDescription().isEmpty())
+            note.setDescription(request.getDescription());
         if (request.getTitle() != null && !request.getTitle().isEmpty())
             note.setTitle(request.getTitle());
         note.setCreationDate(new GregorianCalendar());
@@ -100,12 +118,14 @@ public class NoteService {
     public NoteResponse update(Long id, NoteRequest request, Account account) {
         Note note = findById(id);
         if (note != null) {
-            if (request.getDate() != null)
-                note.setDate(request.getDate());
+            if (request.getStart_date() != null)
+                note.setStartDate(request.getStart_date());
+            if (request.getStart_date() != null)
+                note.setEndDate(request.getStart_date());
             if (request.getTitle() != null)
                 note.setTitle(request.getTitle());
-            if (request.getContent() != null && !request.getContent().isEmpty())
-                note.setContent(request.getContent());
+            if (request.getDescription() != null && !request.getDescription().isEmpty())
+                note.setDescription(request.getDescription());
             note.setAccount(account);
 
             noteRepo.save(note);
@@ -116,7 +136,5 @@ public class NoteService {
         }
     }
 
-    public Iterable<Note> findAll() {
-        return noteRepo.findAll();
-    }
+
 }

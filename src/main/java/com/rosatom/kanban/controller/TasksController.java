@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("tasks")
+@RequestMapping("/tasks")
 public class TasksController {
     @GetMapping("/")
     public String getTasksMainPage() {

@@ -4,8 +4,9 @@ import java.util.GregorianCalendar;
 
 public class NoteRequest {
     private String title;
-    private String content;
-    private GregorianCalendar date;
+    private String description;
+    private GregorianCalendar start_date;
+    private GregorianCalendar end_date;
 
     public NoteRequest() {
     }
@@ -18,19 +19,28 @@ public class NoteRequest {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public GregorianCalendar getDate() {
-        return date;
+    public GregorianCalendar getStart_date() {
+        return start_date;
     }
 
-    public void setDate(GregorianCalendar date) {
-        this.date = date;
+    public void setStart_date(GregorianCalendar start_date) {
+        this.start_date = start_date;
+    }
+
+
+    public GregorianCalendar getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(GregorianCalendar end_date) {
+        this.end_date = end_date;
     }
 }

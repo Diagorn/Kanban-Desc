@@ -1,10 +1,13 @@
 package com.rosatom.kanban.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "articles")
 public class Article {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -14,6 +17,9 @@ public class Article {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Article parent;
+
+    @ManyToMany(mappedBy = "articles")
+    private Set<Job> jobs;
 
     public Article() {
     }
@@ -51,4 +57,11 @@ public class Article {
     }
 
 
+    public Set<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(Set<Job> jobs) {
+        this.jobs = jobs;
+    }
 }

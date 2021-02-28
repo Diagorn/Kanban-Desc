@@ -17,19 +17,15 @@ public class Task {
 
     private String description;
 
-    private GregorianCalendar start;
+    private GregorianCalendar startDate;
 
-    private GregorianCalendar end;
+    private GregorianCalendar endDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Account owner;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<Account> executers;
-
-    public Task() {
-        executers = new HashSet<Account>();
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Account executer;
 
     public Long getId() {
         return id;
@@ -63,20 +59,20 @@ public class Task {
         this.description = description;
     }
 
-    public GregorianCalendar getStart() {
-        return start;
+    public GregorianCalendar getEndDate() {
+        return endDate;
     }
 
-    public void setStart(GregorianCalendar start) {
-        this.start = start;
+    public GregorianCalendar getStartDate() {
+        return startDate;
     }
 
-    public GregorianCalendar getEnd() {
-        return end;
+    public void setEndDate(GregorianCalendar endDate) {
+        this.endDate = endDate;
     }
 
-    public void setEnd(GregorianCalendar end) {
-        this.end = end;
+    public void setStartDate(GregorianCalendar startDate) {
+        this.startDate = startDate;
     }
 
     public Account getOwner() {
@@ -87,11 +83,11 @@ public class Task {
         this.owner = owner;
     }
 
-    public Set<Account> getExecuters() {
-        return executers;
+    public Account getExecuter() {
+        return executer;
     }
 
-    public void setExecuters(Set<Account> executer) {
-        this.executers = executer;
+    public void setExecuter(Account executer) {
+        this.executer = executer;
     }
 }

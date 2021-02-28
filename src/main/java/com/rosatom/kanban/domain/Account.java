@@ -4,12 +4,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Table(name = "accounts")
 public class Account implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -36,8 +38,8 @@ public class Account implements UserDetails {
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<Task> ownedTasks;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Task executedTask;
+    @OneToMany(mappedBy="executer", fetch = FetchType.EAGER)
+    private Set<Task> executedTasks;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
@@ -168,11 +170,11 @@ public class Account implements UserDetails {
         this.ownedTasks = ownedTasks;
     }
 
-    public Task getExecutedTask() {
-        return executedTask;
+    public Set<Task> getExecutedTasks() {
+        return executedTasks;
     }
 
-    public void setExecutedTask(Task executedTask) {
-        this.executedTask = executedTask;
+    public void setExecutedTasks(Set<Task> executedTasks) {
+        this.executedTasks = executedTasks;
     }
 }

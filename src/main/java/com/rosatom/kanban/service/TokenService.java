@@ -24,10 +24,11 @@ public class TokenService {
         return resultToken;
     }
 
-    public void createToken(Account account) {
+    public Token createToken(Account account) {
         Token token = new Token();
         token.setAccount(account);
         token.setToken(generateToken());
         tokenRepo.save(token);
+        return token;
     }
 }

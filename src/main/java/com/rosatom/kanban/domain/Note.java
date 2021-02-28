@@ -1,7 +1,6 @@
 package com.rosatom.kanban.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.GregorianCalendar;
 
 @Entity
@@ -11,10 +10,12 @@ public class Note {
     private Long id;
 
     private String title;
-    private String content;
+    private String description;
 
-    @NotNull
-    private GregorianCalendar date;
+
+    private GregorianCalendar startDate;
+    private GregorianCalendar endDate;
+
     private GregorianCalendar creationDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -39,20 +40,29 @@ public class Note {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String content) {
+        this.description = content;
     }
 
-    public GregorianCalendar getDate() {
-        return date;
+    public GregorianCalendar getStartDate() {
+        return startDate;
     }
 
-    public void setDate(GregorianCalendar date) {
-        this.date = date;
+    public void setStartDate(GregorianCalendar startDate) {
+        this.startDate = startDate;
+    }
+
+
+    public GregorianCalendar getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(GregorianCalendar endDate) {
+        this.endDate = endDate;
     }
 
     public GregorianCalendar getCreationDate() {
