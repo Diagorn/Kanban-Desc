@@ -15,6 +15,9 @@
                             <i class="ti-power-off text-primary"></i>
                             Выход
                         </a>
+                        <a href="#" class="dropdown-item">
+                            ${token}
+                        </a>
                     </div>
                 </li>
                 <li class="nav-item nav-settings d-none d-lg-flex">

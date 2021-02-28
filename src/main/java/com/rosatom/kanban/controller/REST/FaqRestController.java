@@ -21,12 +21,6 @@ public class FaqRestController {
 
     @GetMapping("")
     public Iterable<ArticleResponse> getAllArticles(Principal principal) {
-//        return faqService.findAll();
         return faqService.findAllByJob(((Account) ((Authentication) principal).getPrincipal()).getJob().getId());
     }
-//
-//    @GetMapping("/{id}")
-//    public ArticleResponse getArticle(@PathVariable Long id) {
-//        return faqService.getArticle(id);
-//    }
 }
