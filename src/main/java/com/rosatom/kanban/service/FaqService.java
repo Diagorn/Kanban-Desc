@@ -58,19 +58,4 @@ public class FaqService {
     public Article findById(Long id) {
         return faqRepo.findById(id).get();
     }
-
-//    public ArticleResponse getArticle(Long id) {
-//        Article article = findById(id);
-//        if (article != null) {
-//            return new ArticleResponse(
-//                    article.getId(),
-//                    HttpStatus.OK,
-//                    article.getTitle(),
-//                    article.getContent(),
-//                    article.getParent()
-//            );
-//        } else {
-//            return new ArticleResponse(-1L, HttpStatus.BAD_REQUEST,);
-//        }
-//    }
 }

@@ -16,7 +16,7 @@
                             Выход
                         </a>
                         <a href="#" class="dropdown-item">
-                            ${token}
+                           <!-- ${token} -->
                         </a>
                     </div>
                 </li>

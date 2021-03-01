@@ -1,4 +1,4 @@
-package com.rosatom.kanban.controller.REST;
+package com.rosatom.kanban.controller.REST.main;
 
 
 import com.rosatom.kanban.domain.Account;
