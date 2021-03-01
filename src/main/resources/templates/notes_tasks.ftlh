@@ -7,6 +7,10 @@
             <a class="navbar-brand brand-logo-mini" href="/"><img src="images/logo-mini.svg" alt="logo"/></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+            <ul class="navbar-nav navbar-nav-left">
+                <li class="nav-item"><a href="/">Календарь</a></li>
+                <li class="nav-item"><a href="/table/">Список заметок</a></li>
+            </ul>
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-profile dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
@@ -76,10 +80,10 @@
                                     <div class="card-header">
                                         ${note.title}
                                     </div>
-                                    <p class="card-text pt-2 pl-2">${note.description}</p>
+                                    <p class="card-text mb-5 pt-2 pl-2">${note.description}</p>
                                     <span class="left">${utils.getCalendarAsString(note.startDate)}</span>
                                     <span class="right">${utils.getCalendarAsString(note.endDate)}</span>
-                                    <button class="btn btn-danger" onclick="deleteNote(${note.id})">Удалить</button>
+                                    <!--<button class="btn btn-danger" onclick="deleteNote(${note.id})">Удалить</button>-->
                                 </div>
                             </#list>
                         </div>

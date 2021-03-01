@@ -1,12 +1,13 @@
 package com.rosatom.kanban.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Task {
+public class Task implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
