@@ -4,7 +4,9 @@ import com.rosatom.kanban.domain.Account;
 import com.rosatom.kanban.domain.Note;
 import com.rosatom.kanban.domain.Task;
 import com.rosatom.kanban.domain.TaskStatus;
+import com.rosatom.kanban.dto.requests.TaskColorRequest;
 import com.rosatom.kanban.dto.responses.NoteDataResponse;
+import com.rosatom.kanban.dto.responses.TaskColorResponse;
 import com.rosatom.kanban.dto.responses.TaskDataResponse;
 import com.rosatom.kanban.dto.responses.TaskStatusResponse;
 import com.rosatom.kanban.repos.TaskRepo;
@@ -86,5 +88,12 @@ public class TaskService {
         } else {
             return new TaskStatusResponse(id, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    public TaskColorResponse changeColor(long id, TaskColorRequest request) {
+        Task task = findById(id);
+        task.setColor(request.getColor());
+        taskRepo.save(task);
+        return new TaskColorResponse(id, HttpStatus.OK);
     }
 }

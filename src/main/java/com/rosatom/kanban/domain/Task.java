@@ -22,6 +22,8 @@ public class Task implements Serializable {
 
     private GregorianCalendar endDate;
 
+    private String color = "default";
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Account owner;
 
@@ -90,5 +92,13 @@ public class Task implements Serializable {
 
     public void setExecuter(Account executer) {
         this.executer = executer;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

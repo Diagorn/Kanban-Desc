@@ -1,9 +1,9 @@
 package com.rosatom.kanban.controller.REST.tasks_notes;
 
 import com.rosatom.kanban.domain.Task;
-import com.rosatom.kanban.dto.requests.TaskStatusRequest;
+import com.rosatom.kanban.dto.requests.TaskColorRequest;
+import com.rosatom.kanban.dto.responses.TaskColorResponse;
 import com.rosatom.kanban.dto.responses.TaskDataResponse;
-import com.rosatom.kanban.dto.responses.TaskStatusResponse;
 import com.rosatom.kanban.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +25,8 @@ public class TableTasksRestController {
     }
 
     @PatchMapping("/{id}")
-    private TaskStatusResponse setNewStatus(@PathVariable Long id, @RequestBody TaskStatusRequest newStatus) {
-        return taskService.setNewStatus(id, newStatus.getStatus());
+    @ResponseBody
+    private TaskColorResponse setNewColor(@PathVariable long id, TaskColorRequest request) {
+        return taskService.changeColor(id, request);
     }
 }

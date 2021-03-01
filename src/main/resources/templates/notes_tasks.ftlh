@@ -69,6 +69,7 @@
                                     <p class="card-text mb-5 pt-2 pl-2">${task.description}</p>
                                     <span class="left">${utils.getCalendarAsString(task.startDate)}</span>
                                     <span class="right">${utils.getCalendarAsString(task.endDate)}</span>
+                                    <input type="color" onchange="setTaskColor(task)">
                                 </div>
                             </#list>
                         </div>
@@ -83,7 +84,6 @@
                                     <p class="card-text mb-5 pt-2 pl-2">${note.description}</p>
                                     <span class="left">${utils.getCalendarAsString(note.startDate)}</span>
                                     <span class="right">${utils.getCalendarAsString(note.endDate)}</span>
-                                    <!--<button class="btn btn-danger" onclick="deleteNote(${note.id})">Удалить</button>-->
                                 </div>
                             </#list>
                         </div>
@@ -99,40 +99,15 @@
     <script src="/static/js/locale/locale_ru.js" charset="utf-8"></script>
 
     <script type="text/javascript" charset="utf-8">
-        const tasks_handler = document.getElementById("tasks_handler");
-        const notes_handler = document.getElementById("notes_handler");
-
-        async function updateNote(note) {
-            return await fetch("/table/notes/" + note.id,
+        async function setTaskColor(task) {
+            return await fetch("/table/tasks/" + task.id,
                 {
                     method: "PATCH",
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8',
                         '${_csrf.headerName}': '${_csrf.token}'
                     },
-                    body: JSON.stringify(note)
+                    body: JSON.stringify(task)
                 }).then(result => result.json());
         }
-        async function createNote(note) {
-            return await fetch("/table/notes/",
-                {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8',
-                        '${_csrf.headerName}': '${_csrf.token}'
-
-                    },
-                    body: JSON.stringify(note)
-                }).then(result => result.json());
-        }
-        async function deleteNote(id) {
-            return await fetch("/table/notes/" +id,
-                {
-                    method: "DELETE",
-                    headers: {
-                        '${_csrf.headerName}': '${_csrf.token}'
-                    }
-                });
-        }
-    </script>
 </@c.page>
