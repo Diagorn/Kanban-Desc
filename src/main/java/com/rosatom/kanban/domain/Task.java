@@ -8,6 +8,8 @@ import java.util.Set;
 
 @Entity
 public class Task implements Serializable {
+    private static final long serialVersionUID = -810758173520106459L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

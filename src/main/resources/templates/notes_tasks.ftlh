@@ -62,14 +62,14 @@
                     <div class="mb-4 mb-xl-0 col-6">
                         <div id="tasks_handler" class="tasks-handler">
                             <#list tasks as task>
-                                <div class="card mb-5" style="width: 18rem;">
+                                <div class="card mb-5" style="width: 18rem; background: ${task.color!'#fff'}">
                                     <div class="card-header">
                                         ${task.title}
                                     </div>
                                     <p class="card-text mb-5 pt-2 pl-2">${task.description}</p>
                                     <span class="left">${utils.getCalendarAsString(task.startDate)}</span>
                                     <span class="right">${utils.getCalendarAsString(task.endDate)}</span>
-                                    <input type="color" onchange="setTaskColor(task)">
+                                    <input type="color" value="${task.color!'#fff'}" onchange="setTaskColor(task)">
                                 </div>
                             </#list>
                         </div>

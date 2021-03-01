@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/table/tasks")
+@RequestMapping("/table/tasks/")
 public class TableTasksRestController {
     @Autowired
     private TaskService taskService;
