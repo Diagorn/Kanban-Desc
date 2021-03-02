@@ -6,6 +6,7 @@ import com.rosatom.kanban.domain.Token;
 import com.rosatom.kanban.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +23,7 @@ public class TokenRestController {
 
     @GetMapping
     @ResponseBody
-    public Token getToken(Principal principal) {
-        return tokenService.createToken((Account) ((Authentication) principal).getPrincipal());
+    public Token getToken(@AuthenticationPrincipal Account account) {
+        return tokenService.createToken(account);
     }
 }

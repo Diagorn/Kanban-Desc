@@ -19,8 +19,8 @@ public class FaqRestController {
     private FaqService faqService;
 
     @GetMapping("")
-    public Iterable<ArticleResponse> getAllArticles(Principal principal) {
-        return faqService.findAllByJob(((Account) ((Authentication) principal).getPrincipal()).getJob().getId());
+    public Iterable<ArticleResponse> getAllArticles(@AuthenticationPrincipal Account account) {
+        return faqService.findAllByJob(account.getJob().getId());
     }
 
     @GetMapping("/search")
