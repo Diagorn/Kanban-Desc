@@ -20,7 +20,7 @@
                             Выход
                         </a>
                         <a href="#" class="dropdown-item">
-                           <!-- ${token} -->
+                           Токен для авторизации в боте - ${token}
                         </a>
                     </div>
                 </li>
@@ -42,7 +42,9 @@
             <div class="content-wrapper">
                 <div class="row">
                     <div class="col-12 mb-4 mb-xl-0">
-                        <h3 class="font-weight-bold">Здравствуйте, ${user.firstName}</h3>
+                        <h3>Поиск по статьям: </h3>
+                        <input type="text" placeholder="Поиск..." class="d-inline form-control" id="find-input">
+                        <button type="button" class="btn btn-info d-inline" value="" onclick="findArticles()">Найти</button>
                     </div>
                 </div>
                 <div class="row">
@@ -220,6 +222,16 @@
                         '${_csrf.headerName}': '${_csrf.token}'
                     }
                 });
+        }
+
+        async function findArticles() {
+            let query = document.getElementById("find-input");
+            return await fetch("/search",
+                {
+                    method: "GET",
+                    body: query.getAttribute("value")
+                }
+            )
         }
     </script>
 </#macro>

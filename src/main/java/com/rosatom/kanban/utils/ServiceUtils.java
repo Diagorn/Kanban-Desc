@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 @Service
 public class ServiceUtils {
@@ -91,5 +92,13 @@ public class ServiceUtils {
         result.set(Calendar.MONTH, Integer.parseInt(resultStrings[1])-1);
         result.set(Calendar.DAY_OF_MONTH, Integer.parseInt(resultStrings[2]));
         return result;
+    }
+
+    public static <T> List<T> collideLists(List<T> a, List<T> b) { //Utility that adds members of list B to list A
+        for (T typeObject: b) {
+            if (!a.contains(typeObject))
+                a.add(typeObject);
+        }
+        return a;
     }
 }

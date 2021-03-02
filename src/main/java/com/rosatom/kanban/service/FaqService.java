@@ -1,9 +1,12 @@
 package com.rosatom.kanban.service;
 
+import com.rosatom.kanban.domain.Account;
 import com.rosatom.kanban.domain.Article;
 import com.rosatom.kanban.domain.Job;
+import com.rosatom.kanban.dto.requests.ArticleQueryRequest;
 import com.rosatom.kanban.dto.responses.ArticleResponse;
 import com.rosatom.kanban.repos.FaqRepo;
+import com.rosatom.kanban.utils.ServiceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,14 +24,14 @@ public class FaqService {
 
     public Iterable<ArticleResponse> findAll() {
         List<ArticleResponse> data = new ArrayList<>();
-        for (Article article: faqRepo.findAll()) {
+        for (Article article : faqRepo.findAll()) {
             data.add(
                     new ArticleResponse(
-                        article.getId(),
-                        HttpStatus.OK,
-                        article.getTitle(),
-                        article.getContent(),
-                        article.getParent()
+                            article.getId(),
+                            HttpStatus.OK,
+                            article.getTitle(),
+                            article.getContent(),
+                            article.getParent()
                     )
             );
         }
@@ -37,18 +40,18 @@ public class FaqService {
 
     public Iterable<ArticleResponse> findAllByJob(Long jobId) {
         List<ArticleResponse> data = new ArrayList();
-        for (Article article: faqRepo.findAll()) {
-            for(Job job: article.getJobs()) {
+        for (Article article : faqRepo.findAll()) {
+            for (Job job : article.getJobs()) {
                 if (job.getId().equals(jobId)) {
                     data.add(
-                        new ArticleResponse(
-                            article.getId(),
-                            HttpStatus.OK,
-                            article.getTitle(),
-                            article.getContent(),
-                            article.getParent()
-                        )
-                );
+                            new ArticleResponse(
+                                    article.getId(),
+                                    HttpStatus.OK,
+                                    article.getTitle(),
+                                    article.getContent(),
+                                    article.getParent()
+                            )
+                    );
                 }
             }
         }
@@ -57,5 +60,26 @@ public class FaqService {
 
     public Article findById(Long id) {
         return faqRepo.findById(id).get();
+    }
+
+    public Iterable<ArticleResponse> findAllByQuery(Account account, ArticleQueryRequest request) {
+        String query = request.getQuery();
+        List<Article> result = ServiceUtils.collideLists(faqRepo.findAllByTitleContaining(query),
+                faqRepo.findAllByContentContaining(query));
+        List<ArticleResponse> data = new ArrayList<ArticleResponse>();
+        for (Article article : result) {
+            for (Job job : article.getJobs()) {
+                if (article.getJobs().contains(job)) {
+                    data.add(new ArticleResponse(
+                            article.getId(),
+                            HttpStatus.OK,
+                            article.getTitle(),
+                            article.getContent(),
+                            article.getParent()
+                    ));
+                }
+            }
+        }
+        return data;
     }
 }

@@ -26,7 +26,12 @@ public class TableTasksRestController {
 
     @PatchMapping("/{id}")
     @ResponseBody
-    private TaskColorResponse setNewColor(@PathVariable long id, TaskColorRequest request) {
+    private TaskColorResponse setNewColor(@PathVariable long id, @RequestBody TaskColorRequest request) {
         return taskService.changeColor(id, request);
+    }
+
+    @GetMapping("/filter")
+    private Iterable<TaskDataResponse> getAllByFilter() {
+        return taskService.filterAll();
     }
 }

@@ -69,7 +69,8 @@
                                     <p class="card-text mb-5 pt-2 pl-2">${task.description}</p>
                                     <span class="left">${utils.getCalendarAsString(task.startDate)}</span>
                                     <span class="right">${utils.getCalendarAsString(task.endDate)}</span>
-                                    <input type="color" value="${task.color!'#fff'}" onchange="setTaskColor(task)">
+                                    <input type="color" value="${task.color!'#ffffff'}"
+                                           onchange="setTaskColor(${task});" />
                                 </div>
                             </#list>
                         </div>
@@ -110,4 +111,5 @@
                     body: JSON.stringify(task)
                 }).then(result => result.json());
         }
+    </script>
 </@c.page>
